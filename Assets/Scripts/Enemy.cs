@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour {
 
-	public bool isVertical;
+	public bool isVertical;  // for direction of enemy movement
 	int toggleMovement = 1;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -22,10 +23,12 @@ public class Enemy : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (collision.gameObject.tag.Equals ("Player")) {
+		// if enemy hits the player or power-ups, it will be destroyed
+		if (collision.gameObject.tag.Equals ("Player") || collision.gameObject.tag.Equals ("PowerUp")) {
 			Destroy (collision.gameObject);
-			GameController.instance.RestartGame ();
-		} else  if (!collision.gameObject.tag.Equals ("enemy")) {
+			if (collision.gameObject.tag.Equals ("Player"))
+				GameController.instance.RestartGame ();
+		} else  if (!collision.gameObject.tag.Equals ("enemy")) { // do nothing if enemy collides with enemy & change movement if it hit wall or box
 			toggleMovement = toggleMovement * (-1);
 		}
 	}

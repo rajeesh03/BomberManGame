@@ -3,6 +3,7 @@ using System.Collections;
 
 public class PowerUp : MonoBehaviour
 {
+	// 3 types of power ups
     public int bombs;
     public int firePower;
     public int speed;
