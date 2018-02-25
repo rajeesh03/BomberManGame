@@ -11,7 +11,7 @@ public class PowerUpSpawner : MonoBehaviour{
         powerUpController = FindObjectOfType<PowerUpController>();
 
         int randomIndex = Random.Range(0, powerUps.Length);
-        if(Random.Range(0f,1f) > 0.5f)
+		if(Random.Range(0f,2.0f) >1.3f)
         {
             powerUpController.CmdSpawnPowerUp(transform.position, powerUps[randomIndex]);
         }
