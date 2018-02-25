@@ -21,14 +21,14 @@ public class Enemy : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerEnter2D(Collider2D collision)
+	void OnTriggerEnter2D(Collider2D other)
 	{
 		// if enemy hits the player or power-ups, it will be destroyed
-		if (collision.gameObject.tag.Equals ("Player") || collision.gameObject.tag.Equals ("PowerUp")) {
-			Destroy (collision.gameObject);
-			if (collision.gameObject.tag.Equals ("Player"))
+		if (other.gameObject.tag.Equals ("Player") || other.gameObject.tag.Equals ("PowerUp")) {
+			Destroy (other.gameObject);
+			if (other.gameObject.tag.Equals ("Player"))
 				GameController.instance.RestartGame ();
-		} else  if (!collision.gameObject.tag.Equals ("enemy")) { // do nothing if enemy collides with enemy & change movement if it hit wall or box
+		} else  if (!other.gameObject.tag.Equals ("enemy")) { // do nothing if enemy collides with enemy & change movement if it hit wall or box
 			toggleMovement = toggleMovement * (-1);
 		}
 	}

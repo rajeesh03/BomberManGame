@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour{
     public float speed;
-    private Rigidbody2D rb2d;
+    private Rigidbody2D rigidBody2d;
 
 	public int playerNumber = 1;
     public Sprite[] sprites;
@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour{
 
 	// Use this for initialization
 	void Start () {
-        rb2d = GetComponent<Rigidbody2D>();
+        rigidBody2d = GetComponent<Rigidbody2D>();
         GameObject.Find("GameController").GetComponent<GameController>().LevelScan();
         GetComponent<SpriteRenderer>().sprite = sprites[playerNumber - 1];
         transform.position = spawnPositions[playerNumber - 1];
@@ -34,6 +34,6 @@ public class PlayerController : MonoBehaviour{
         Vector2 movement = new Vector2(x, y) * speed;
 
         //Set movement
-        rb2d.velocity = movement;
+        rigidBody2d.velocity = movement;
 	}
 }

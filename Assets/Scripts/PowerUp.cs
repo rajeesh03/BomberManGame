@@ -16,14 +16,14 @@ public class PowerUp : MonoBehaviour
         gameController.level[(int)transform.position.x, (int)transform.position.y] = gameObject;
     }
 
-    public void OnTriggerEnter2D(Collider2D collision)
+    public void OnTriggerEnter2D(Collider2D other)
     {
         //See if we have collided with the player
-        if (collision.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player")
         {
             //Gather references to components
-            PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
-            BombSpawner BombSpawner = collision.gameObject.GetComponent<BombSpawner>();
+            PlayerController playerController = other.gameObject.GetComponent<PlayerController>();
+            BombSpawner BombSpawner = other.gameObject.GetComponent<BombSpawner>();
 
             //adjust the values
             playerController.speed += speed;

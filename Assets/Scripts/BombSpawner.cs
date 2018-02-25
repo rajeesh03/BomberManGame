@@ -11,14 +11,14 @@ public class BombSpawner : MonoBehaviour{
 
 	void Update () {
 		if (Input.GetButtonDown("Fire_P" + player.playerNumber) && numberOfBombs >= 1) {
-            CmdSpawnBomb();
+            SpawnBomb();
         }
     }
 
-    private void CmdSpawnBomb()
+    private void SpawnBomb()
     {
         Vector2 spawnPos = new Vector2(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y));
-        var newBomb = Instantiate(bomb, spawnPos, Quaternion.identity) as GameObject;
+		GameObject newBomb = Instantiate(bomb, spawnPos, Quaternion.identity) as GameObject;
         newBomb.GetComponent<Bomb>().firePower = firePower;
         newBomb.GetComponent<Bomb>().fuse = fuse;
         numberOfBombs--;

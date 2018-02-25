@@ -1,24 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
-using UnityEngine.Networking;
 
-public class Bomb : NetworkBehaviour
+public class Bomb : MonoBehaviour
 {
     public GameObject fire;
-
-    [SyncVar]
+   
     internal int firePower;
-
     internal float fuse = 2;
-    GameController gc;
+	GameController gameController;
     Vector3[] directions = new Vector3[] { Vector3.up, Vector3.down, Vector3.left, Vector3.right };
 
     // Use this for initialization
     void Start()
     {
         Invoke("Explode", fuse);
-        gc = GameObject.Find("GameController").GetComponent<GameController>();
+        gameController = GameObject.Find("GameController").GetComponent<GameController>();
     }
 
     //Bomb should now explode
@@ -31,7 +28,7 @@ public class Bomb : NetworkBehaviour
         Instantiate(fire, transform.position, Quaternion.identity);
 
         //create the rest of the fire
-        foreach (var direction in directions)
+		foreach (Vector3 direction in directions)
         {
             SpawnFire(direction);
         }
@@ -50,7 +47,7 @@ public class Bomb : NetworkBehaviour
         y = Mathf.Clamp(y, 0, GameController.Y - 1);
 
         //If the square is free
-        if (gc.level[x, y] == null && fire < firePower)
+        if (gameController.level[x, y] == null && fire < firePower)
         {
             Instantiate(this.fire, transform.position + (offset * fire), Quaternion.identity);
             //Call self, keep spawning fire
@@ -59,14 +56,14 @@ public class Bomb : NetworkBehaviour
         else if(fire < firePower)
         {
             //Check if we have hit anything
-            if(gc.level[x, y] != null && gc.level[x, y].tag == "Destroyable")
+            if(gameController.level[x, y] != null && gameController.level[x, y].tag == "Destroyable")
             {
                 Instantiate(this.fire, transform.position + (offset * fire), Quaternion.identity);
             }
         }  
     }
 
-    public void OnTriggerExit2D(Collider2D collision)
+    public void OnTriggerExit2D(Collider2D other)
     {
         //Turn on bomb collision when player leaves.
         GetComponent<BoxCollider2D>().isTrigger = false;
